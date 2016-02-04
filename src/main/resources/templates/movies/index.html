@@ -1,0 +1,22 @@
+<h1>Movies</h1>
+
+<button type="button" class="button blue m--sm--b" ng-click="isAdding=true" ng-show="!isAdding">Add Movie</button>
+<button type="button" class="button inline btn-link" ng-click="isAdding=false" ng-show="isAdding">Cancel</button>
+<add-movie ng-show="isAdding" on-cancel="isAdding=false" on-add="create()" movie="newMovie"></add-movie>
+
+<div ng-repeat="movie in movies | filter:query" class="m--md--x">
+  <div ng-include="'templates/movies/_movie.html'"></div>
+</div>
+
+<pagination on-first-page="firstPage()"
+            on-previous-page="previousPage(pageGroup)"
+            on-next-page="nextPage(pageGroup)"
+            on-last-page="lastPage()"
+            on-choose-page="choosePage(page)"
+            on-previous-page-group="previousPageGroup(pageGroup)"
+            on-next-page-group="nextPageGroup(pageGroup)"
+            pages="pages"
+            page-group="pageGroups[pageGroupNumber]"
+            page-number="pageNumber"
+            total-pages="totalPages"
+            ></pagination>

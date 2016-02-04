@@ -1,0 +1,19 @@
+<form autocomplete="off" ng-submit="update(movie)">
+  <label for="rated">Rated</label>
+  <input name="rated" id="rated" ng-model="movie.rated" ng-value="movie.rated" required="true"/>
+  <label for="genre">Genre</label>
+  <input name="genre" id="genre" ng-model="movie.genre" ng-value="movie.genre"/>
+  <label for="duration">Duration</label><br />
+  <input name="duration" id="duration" ng-model="movie.duration" ng-value="movie.duration" class="inline m--sm--r"/><span>minutes</span><br />
+  <label for="release-date">Release Date</label>
+  <input name="release-date" id="release-date" ng-model="movie.releaseDate" ng-value="movie.releaseDate"/>
+  <label for="director">Director</label>
+  <input name="director" id="director" ng-model="movie.director" ng-value="movie.director"/>
+  <label for="writer">Writer</label>
+  <input name="writer" id="writer" ng-model="movie.writer" ng-value="writer"/>
+  <label for="actors">Actors</label>
+  <input name="actors" id="actors" ng-model="movie.actors" ng-value="movie.actors"/>
+  <label for="description">Description</label>
+  <input name="description" id="description" ng-model="movie.description" ng-value="movie.description"/>
+  <input type="submit" class="button light-blue" value="Save Changes"/>
+</form>

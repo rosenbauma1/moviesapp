@@ -1,0 +1,17 @@
+<div class="movie border m--md--y">
+  <div style="width:100px; height:30px; float:right; text-align:center; color:white;" ng-style="genreColor(movie)">{{movie.genre}}</div>
+  <div class="m--md--x m--md--y">
+    <div class="image-and-buttons">
+      <img ng-show="movie.imageUrl" ng-src="{{src(movie)}}" class="image m--md--b" /><br />
+      <button type="button" ng-show="showEdit(movie)" ng-click="movie.isEditing=!movie.isEditing" class="button light-blue block">Edit</button>
+      <button type="button" class="button block btn-link light-blue" ng-click="movie.isEditing=false" ng-show="movie.isEditing">Cancel</button>
+      <button type="button" class="button red m--sm--t" ng-click="movie.isDeleting=true" ng-show="!movie.isDeleting">Delete</button>
+      <delete-dialogue ng-show="movie.isDeleting" on-cancel="movie.isDeleting=false" on-delete="delete(movie)" content="movie"></delete-dialogue>
+    </div>
+    <div class="clear-image">
+      <h3>{{movie.title}}</h3>
+      <div ng-include="'templates/movies/_movie-details.html'" ng-show="!movie.isEditing"></div>
+      <div ng-include="'templates/movies/_movie-editing.html'" ng-show="movie.isEditing" class="m--md--b"></div>
+    </div>
+  </div>
+</div>

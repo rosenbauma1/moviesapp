@@ -1,0 +1,14 @@
+<div class="center">
+  <button type="button" class="button light-grey" ng-click="onFirstPage()">&#60;&#60;</button>
+  <button ng-hide="pageNumber===0" type="button" class="button light-grey" ng-click="onPreviousPage({ pageGroup: pageGroup })">&#60;</button>
+  <button ng-show="pageGroup.indexOf(1)===-1" type="button" class="button btn-link" ng-click="onPreviousPageGroup({ pageGroup: pageGroup })">...</button>
+  
+  <div class="inline" ng-repeat="page in pageGroup">
+    <button type="button" class="button btn-link" ng-click="onChoosePage({ page: page })" ng-disabled="page===pageNumber+1">{{page}}</button>
+  </div>
+
+  <button ng-show="pageGroup.indexOf(totalPages)===-1" type="button" class="button btn-link" ng-click="onNextPageGroup({ pageGroup: pageGroup })">...</button>
+  <button ng-hide="pageNumber===totalPages" type="button" class="button light-grey" ng-click="onNextPage({ pageGroup: pageGroup })">></button>
+  <button type="button" class="button light-grey" ng-click="onLastPage()">>></button>
+  <div class="m--sm--t" ng-bind-template=" Page {{pageNumber + 1}} of {{totalPages + 1}} "></div>
+</div>

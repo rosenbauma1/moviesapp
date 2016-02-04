@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-US" >
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="css/extra.css" />
+    <link rel="stylesheet" href="css/foundation.css" />
+   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>     
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>
+  </head>
+  <body>
+    <nav class="top-bar" >
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="./">Login</a></h1>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+      </section>
+    </nav>
+    <div class="row">
+      <div class="large-12 columns">
+        <h3 style="">Sogeti Technical University</h3>
+        <hr/>
+      </div>
+    </div>
+    <form class="row" ng-app="loginapp" ng-controller="loginCtrl" name="loginForm">
+      <div class="large-12 columns">
+      	<div class="panel" >
+          <h4 id="greenColor">Please Login:</h4><br/>
+    		Username: <input type="text" ng-model="username" name="usrname" />
+    			<!--<span style="color:red" ng-show='loginForm.usrname.$dirty && loginForm.usrname.$invalid'>
+					<span ng-show="loginForm.usrname.$error.required">Username is required.</span>
+				</span> -->
+    		Password: <input type="password" ng-model="password" name="pass"/>
+    			<!--  <span style="color:red" ng-show="loginForm.pass.$dirty && loginForm.pass.$invalid">
+					<span ng-show="loginForm.pass.$error.required">Password is required.</span>
+				</span>  -->
+				
+    		<!-- <input type="submit" ng-click="attemptLogin()" name="loginBtn" ng-disabled="loginForm.usrname.$dirty && loginForm.usrname.$invalid ||  
+loginForm.pass.$dirty && loginForm.pass.$invalid" value="Login"/> -->
+			<input type="submit" ng-click="attemptLogin(users)" name="loginBtn" value="Login"/>
+    		<input type="submit" ng-click="loginAsGuest()" name="guestBtn" value="Guest"/>
+    		<span style="color:red;" ng-hide="loginSuccess" ng-model="err_pass">Incorrect Username or Password</span>
+	    </div>
+        <hr/>
+      </div>
+    </form>
+    <script>
+  //<![CDATA[ 
+    	var app = angular.module("loginapp", []);
+    	app.controller("loginCtrl", function($scope, $http, $window){
+    		
+    		$scope.user = {};
+    		$http.get("http://bluegreen-alr-api.cfapps.io/api/users")
+		    	.then(function(response) {
+		    		$scope.users = response.data.records;
+	    		});
+	    		$scope.loginSuccess=true;
+	    		$scope.attemptLogin = function(){
+	    			$scope.loginSuccess = false;
+			    	for(i = 0; i < $scope.users.length; i++){
+			    		if($scope.users[i].username === $scope.username && $scope.users[i].password === $scope.password){
+			    			$scope.loginSuccess = true; 
+			    			
+			    		    $scope.user = $scope.users[i];
+			    			
+		    		        $http({
+		    		          method  : 'POST',
+		    		          url     : 'postlogin',
+		    		          data    : $scope.user, //forms user object
+		    		          headers: {'Content-Type': 'application/json; charset=utf-8'} 
+		    		         }).success(function(){
+		    		        	 $window.location.href = '/home';
+		    		         });
+			    		}
+			    	}
+	    		 };
+	    		
+	    		$scope.loginAsGuest= function(){
+	    			$window.location.href = '/home'; //redirect guest to /home
+	    		};
+    	});
+    //]]>	
+    </script>
+
+    </body>
+</html>
